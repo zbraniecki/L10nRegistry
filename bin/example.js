@@ -31,7 +31,7 @@ const appData = {
 
 
 const L10nRegistry = require('../lib/main').L10nRegistry;
-const FileSource = require('../lib/sources').FileSource;
+const FileSource = require('../lib/main').FileSource;
 
 const platformFileSource = new FileSource('platform', 'gre/localization/{locale}');
 const appFileSource = new FileSource('app', '/localization/{locale}');
