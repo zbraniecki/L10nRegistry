@@ -1,0 +1,14 @@
+{
+  "name": "L10nRegistry",
+  "version": "0.0.1",
+  "description": "L10n Registry for Gecko",
+  "main": "index.js",
+  "repository": "https://github.com/zbraniecki/L10nRegistry",
+  "author": "Zibi Braniecki <zbraniecki@mozilla.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-register": "^6.18.0",
+    "rollup": "^0.41.2"
+  }
+}
