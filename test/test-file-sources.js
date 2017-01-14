@@ -28,6 +28,12 @@ describe('One source, one locale', function() {
 
     assert.equal(res.next().done, true);
   });
+
+  it('returns no bundles for missing locale', function() {
+    let res = L10nRegistry.getResources(['pl'], ['test.ftl']);
+
+    assert.equal(res.next().done, true);
+  });
 });
 
 describe('Two sources, two locales', function() {
