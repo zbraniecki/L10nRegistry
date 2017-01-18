@@ -1,12 +1,10 @@
-import assert from 'assert';
+import test from 'ava';
 import { L10nRegistry, FileSource } from '../lib/main';
 
-describe('Empty', function() {
-  it('should have an L10nRegistry in the scope', function() {
-    assert.equal(typeof L10nRegistry, 'object');
-  });
-  
-  it('should have a FileSource in the scope', function() {
-    assert.equal(typeof FileSource, 'function');
-  });
+test('should have L10nRegistry in the scope', t => {
+  t.is(typeof L10nRegistry, 'object');
+});
+
+test('should have FileSource in the scope', t => {
+  t.is(typeof FileSource, 'function');
 });
