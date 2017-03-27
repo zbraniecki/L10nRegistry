@@ -1,18 +1,17 @@
 import test from 'ava';
 import { L10nRegistry, FileSource } from '../lib/main';
+import '../lib/test/io';
 
 test.before(() => {
   let oneSource = new FileSource('platform', ['en-US'], './platform/data/locales/{locale}/');
-  oneSource.fs = {
-    './platform/data/locales/en-US/test.ftl': 'key = platform value'
-  };
   L10nRegistry.registerSource(oneSource);
 
   let secondSource = new FileSource('app', ['pl'], './app/data/locales/{locale}/');
-  secondSource.fs = {
+  L10nRegistry.registerSource(secondSource);
+  L10nRegistry.fs = {
+    './platform/data/locales/en-US/test.ftl': 'key = platform value',
     './app/data/locales/pl/test.ftl': 'key = app value'
   };
-  L10nRegistry.registerSource(secondSource);
 });
 
 test.after(() => {

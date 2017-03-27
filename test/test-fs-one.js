@@ -1,9 +1,10 @@
 import test from 'ava';
 import { L10nRegistry, FileSource } from '../lib/main';
+import '../lib/test/io';
 
 test.before(() => {
   let oneSource = new FileSource('app', ['en-US'], './app/data/locales/{locale}/');
-  oneSource.fs = {
+  L10nRegistry.fs = {
     './app/data/locales/en-US/test.ftl': 'key = value'
   };
   L10nRegistry.registerSource(oneSource);

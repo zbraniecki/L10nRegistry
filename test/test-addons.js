@@ -1,12 +1,13 @@
 import test from 'ava';
 import { L10nRegistry, AddonSource } from '../lib/main';
+import '../lib/test/io';
 
 test.before(() => {
   let oneSource = new AddonSource('langpack-pl', ['pl'], './data/locales/{locale}/');
-  oneSource.fs = {
+  L10nRegistry.registerSource(oneSource);
+  L10nRegistry.fs = {
     '/data/locales/pl/test.ftl': 'key = value'
   };
-  L10nRegistry.registerSource(oneSource);
 });
 
 test.after(() => {

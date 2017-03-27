@@ -1,20 +1,19 @@
 import test from 'ava';
 import { L10nRegistry, FileSource, AddonSource } from '../lib/main';
+import '../lib/test/io';
 
 test.before(() => {
   let fileSource = new FileSource('app', ['pl'], '/app/data/locales/{locale}/');
-  fileSource.fs = {
-    '/app/data/locales/pl/test.ftl': 'key = value'
-  };
   L10nRegistry.registerSource(fileSource);
 
   let oneSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/', [
     '/data/locales/pl/test.ftl'
   ]);
-  oneSource.fs = {
+  L10nRegistry.registerSource(oneSource);
+  L10nRegistry.fs = {
+    '/app/data/locales/pl/test.ftl': 'key = value',
     '/data/locales/pl/test.ftl': 'key = addon value'
   };
-  L10nRegistry.registerSource(oneSource);
 });
 
 test.after(() => {
@@ -30,9 +29,7 @@ test('returns new bundles', t => {
   const newSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/', [
     '/data/locales/pl/test.ftl'
   ]);
-  newSource.fs = {
-    '/data/locales/pl/test.ftl': 'key = new value'
-  };
+  L10nRegistry.fs['/data/locales/pl/test.ftl'] = 'key = new value';
   L10nRegistry.updateSource(newSource);
 
   let res = L10nRegistry.getResources(['pl'], ['test.ftl']);
