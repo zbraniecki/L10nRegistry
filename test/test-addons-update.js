@@ -2,13 +2,15 @@ import test from 'ava';
 import { L10nRegistry, FileSource, AddonSource } from '../lib/main';
 
 test.before(() => {
-  let fileSource = new FileSource('app', '/app/data/locales/{locale}/');
+  let fileSource = new FileSource('app', ['pl'], '/app/data/locales/{locale}/');
   fileSource.fs = {
     '/app/data/locales/pl/test.ftl': 'key = value'
   };
   L10nRegistry.registerSource(fileSource);
 
-  let oneSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/');
+  let oneSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/', [
+    '/data/locales/pl/test.ftl'
+  ]);
   oneSource.fs = {
     '/data/locales/pl/test.ftl': 'key = addon value'
   };
@@ -25,7 +27,9 @@ test('has two sources', t => {
 });
 
 test('returns new bundles', t => {
-  const newSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/');
+  const newSource = new AddonSource('langpack-pl', ['pl'], '/data/locales/{locale}/', [
+    '/data/locales/pl/test.ftl'
+  ]);
   newSource.fs = {
     '/data/locales/pl/test.ftl': 'key = new value'
   };

@@ -2,7 +2,7 @@ import test from 'ava';
 import { L10nRegistry, FileSource } from '../lib/main';
 
 test.before(() => {
-  let oneSource = new FileSource('app', './app/data/locales/{locale}/');
+  let oneSource = new FileSource('app', ['en-US'], './app/data/locales/{locale}/');
   oneSource.fs = {
     './app/data/locales/en-US/test.ftl': 'key = value'
   };
