@@ -19,14 +19,14 @@ test('has one source', t => {
   t.is(L10nRegistry.sources.hasOwnProperty('app'), true);
 });
 
-test('returns a single bundle', t => {
+test.only('returns a single bundle', async t => {
   let res = L10nRegistry.getResources(['en-US'], ['test.ftl']);
-  let res0 = res.next();
+  let res0 = await res.next();
   t.is(res0.value.locale, 'en-US');
   t.is(res0.value.resources['test.ftl'].data, 'key = value');
   t.is(res0.value.resources['test.ftl'].source, 'app');
 
-  t.is(res.next().done, true);
+  t.is((await res.next()).done, true);
 });
 
 test('returns no bundles for missing locale', t => {
