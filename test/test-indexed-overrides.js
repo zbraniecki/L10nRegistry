@@ -27,16 +27,18 @@ test('has two sources', t => {
 });
 
 test('returns correct bundles', t => {
-  let res = L10nRegistry.getResources(['pl'], ['test.ftl']);
-  let res0 = res.next();
-  t.is(res0.value.locale, 'pl');
-  t.is(res0.value.resources['test.ftl'].data, 'key = addon value');
-  t.is(res0.value.resources['test.ftl'].source, 'langpack-pl');
+  let ctxs = L10nRegistry.generateContexts(['pl'], ['test.ftl']);
+  let ctx0 = ctxs.next();
+  t.is(ctx0.value.locales[0], 'pl');
+  t.is(ctx0.value.messages.has('key'), true);
+  let msg0 = ctx0.value.messages.get('key');
+  t.is(ctx0.value.format(msg0), 'addon value');
 
-  let res1 = res.next();
-  t.is(res1.value.locale, 'pl');
-  t.is(res1.value.resources['test.ftl'].data, 'key = value');
-  t.is(res1.value.resources['test.ftl'].source, 'app');
+  let ctx1 = ctxs.next();
+  t.is(ctx1.value.locales[0], 'pl');
+  t.is(ctx1.value.messages.has('key'), true);
+  let msg1 = ctx1.value.messages.get('key');
+  t.is(ctx1.value.format(msg1), 'value');
 
-  t.is(res.next().done, true);
+  t.is(ctxs.next().done, true);
 });

@@ -25,26 +25,29 @@ test('has two sources', t => {
 });
 
 test('returns correct bundles for en-US', t => {
-  let res = L10nRegistry.getResources(['en-US'], ['test.ftl']);
-  let res0 = res.next();
-  t.is(res0.value.locale, 'en-US');
-  t.is(res0.value.resources['test.ftl'].data, 'key = platform value');
-  t.is(res0.value.resources['test.ftl'].source, 'platform');
+  let ctxs = L10nRegistry.generateContexts(['en-US'], ['test.ftl']);
+  let ctx0 = ctxs.next();
 
-  t.is(res.next().done, true);
+  t.is(ctx0.value.messages.has('key'), true);
+  let msg = ctx0.value.messages.get('key');
+  t.is(ctx0.value.format(msg), 'platform value');
+
+  t.is(ctxs.next().done, true);
 });
 
 test('returns correct bundles for [pl, en-US]', t => {
-  let res = L10nRegistry.getResources(['pl', 'en-US'], ['test.ftl']);
-  let res0 = res.next();
-  t.is(res0.value.locale, 'pl');
-  t.is(res0.value.resources['test.ftl'].data, 'key = app value');
-  t.is(res0.value.resources['test.ftl'].source, 'app');
+  let ctxs = L10nRegistry.generateContexts(['pl', 'en-US'], ['test.ftl']);
+  let ctx0 = ctxs.next();
+  t.is(ctx0.value.locales[0], 'pl');
+  t.is(ctx0.value.messages.has('key'), true);
+  let msg0 = ctx0.value.messages.get('key');
+  t.is(ctx0.value.format(msg0), 'app value');
 
-  let res1 = res.next();
-  t.is(res1.value.locale, 'en-US');
-  t.is(res1.value.resources['test.ftl'].data, 'key = platform value');
-  t.is(res1.value.resources['test.ftl'].source, 'platform');
+  let ctx1 = ctxs.next();
+  t.is(ctx1.value.locales[0], 'en-US');
+  t.is(ctx1.value.messages.has('key'), true);
+  let msg1 = ctx1.value.messages.get('key');
+  t.is(ctx1.value.format(msg1), 'platform value');
 
-  t.is(res.next().done, true);
+  t.is(ctxs.next().done, true);
 });
