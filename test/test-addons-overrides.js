@@ -22,8 +22,8 @@ test.after(() => {
 });
 
 test('has two sources', t => {
-  t.is(Object.keys(L10nRegistry.sources).length, 2);
-  t.is(L10nRegistry.sources.hasOwnProperty('langpack-pl'), true);
+  t.is(L10nRegistry.sources.size, 2);
+  t.is(L10nRegistry.sources.has('langpack-pl'), true);
 });
 
 test('returns correct bundles', t => {

@@ -19,9 +19,9 @@ test.after(() => {
 });
 
 test('has two sources', t => {
-  t.is(Object.keys(L10nRegistry.sources).length, 2);
-  t.is(L10nRegistry.sources.hasOwnProperty('app'), true);
-  t.is(L10nRegistry.sources.hasOwnProperty('platform'), true);
+  t.is(L10nRegistry.sources.size, 2);
+  t.is(L10nRegistry.sources.has('app'), true);
+  t.is(L10nRegistry.sources.has('platform'), true);
 });
 
 test('returns correct bundles for en-US', t => {

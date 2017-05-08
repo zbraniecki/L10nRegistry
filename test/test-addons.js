@@ -15,6 +15,6 @@ test.after(() => {
 });
 
 test('has one source', t => {
-  t.is(Object.keys(L10nRegistry.sources).length, 1);
-  t.is(L10nRegistry.sources.hasOwnProperty('langpack-pl'), true);
+  t.is(L10nRegistry.sources.size, 1);
+  t.is(L10nRegistry.sources.has('langpack-pl'), true);
 });

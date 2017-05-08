@@ -15,8 +15,8 @@ test.after(() => {
 });
 
 test('has one source', t => {
-  t.is(Object.keys(L10nRegistry.sources).length, 1);
-  t.is(L10nRegistry.sources.hasOwnProperty('app'), true);
+  t.is(L10nRegistry.sources.size, 1);
+  t.is(L10nRegistry.sources.has('app'), true);
 });
 
 test('returns a single bundle', t => {
