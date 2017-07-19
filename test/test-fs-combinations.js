@@ -27,66 +27,66 @@ test('has two sources', t => {
   t.is(L10nRegistry.sources.has('platform'), true);
 });
 
-test('returns correct contexts for two sources for en-US', t => {
+test.skip('returns correct contexts for two sources for en-US', async t => {
   let ctxs = L10nRegistry.generateContexts(['en-US'], ['menu.ftl', 'about.ftl']);
-  let ctx0 = ctxs.next();
+  let ctx0 = await ctxs.next().value;
 
-  t.is(ctx0.value.messages.has('key'), true);
-  let msg0 = ctx0.value.messages.get('key');
-  t.is(ctx0.value.format(msg0), 'app value');
+  t.is(ctx0.hasMessage('key'), true);
+  let msg0 = ctx0.getMessage('key');
+  t.is(ctx0.format(msg0), 'app value');
 
-  t.is(ctx0.value.messages.has('key2'), true);
-  let msg1 = ctx0.value.messages.get('key2');
-  t.is(ctx0.value.format(msg1), 'about app');
+  t.is(ctx0.hasMessage('key2'), true);
+  let msg1 = ctx0.getMessage('key2');
+  t.is(ctx0.format(msg1), 'about app');
 
-  let ctx1 = ctxs.next();
+  let ctx1 = await ctxs.next().value;
 
-  t.is(ctx1.value.messages.has('key'), true);
-  let msg2 = ctx1.value.messages.get('key');
-  t.is(ctx1.value.format(msg2), 'platform value');
+  t.is(ctx1.hasMessage('key'), true);
+  let msg2 = ctx1.getMessage('key');
+  t.is(ctx1.format(msg2), 'platform value');
 
-  t.is(ctx1.value.messages.has('key2'), true);
-  let msg3 = ctx1.value.messages.get('key2');
-  t.is(ctx1.value.format(msg3), 'about app');
+  t.is(ctx1.hasMessage('key2'), true);
+  let msg3 = ctx1.getMessage('key2');
+  t.is(ctx1.format(msg3), 'about app');
 
   t.is(ctxs.next().done, true);
 });
 
-test('returns correct contexts for two sources for [pl, en-US]', t => {
+test.skip('returns correct contexts for two sources for [pl, en-US]', async t => {
   let ctxs = L10nRegistry.generateContexts(['pl', 'en-US'], ['menu.ftl', 'about.ftl']);
   let ctx, msg;
-  ctx = ctxs.next();
+  ctx = await ctxs.next().value;
 
-  t.is(ctx.value.locales[0], 'pl');
-  t.is(ctx.value.messages.has('key'), true);
-  msg = ctx.value.messages.get('key');
-  t.is(ctx.value.format(msg), 'dane platformy');
+  t.is(ctx.locales[0], 'pl');
+  t.is(ctx.hasMessage('key'), true);
+  msg = ctx.getMessage('key');
+  t.is(ctx.format(msg), 'dane platformy');
 
-  t.is(ctx.value.messages.has('key2'), true);
-  msg = ctx.value.messages.get('key2');
-  t.is(ctx.value.format(msg), 'o aplikacji');
+  t.is(ctx.hasMessage('key2'), true);
+  msg = ctx.getMessage('key2');
+  t.is(ctx.format(msg), 'o aplikacji');
 
-  ctx = ctxs.next();
+  ctx = await ctxs.next().value;
 
-  t.is(ctx.value.locales[0], 'en-US');
-  t.is(ctx.value.messages.has('key'), true);
-  msg = ctx.value.messages.get('key');
-  t.is(ctx.value.format(msg), 'app value');
+  t.is(ctx.locales[0], 'en-US');
+  t.is(ctx.hasMessage('key'), true);
+  msg = ctx.getMessage('key');
+  t.is(ctx.format(msg), 'app value');
 
-  t.is(ctx.value.messages.has('key2'), true);
-  msg = ctx.value.messages.get('key2');
-  t.is(ctx.value.format(msg), 'about app');
+  t.is(ctx.hasMessage('key2'), true);
+  msg = ctx.getMessage('key2');
+  t.is(ctx.format(msg), 'about app');
 
-  ctx = ctxs.next();
+  ctx = await ctxs.next().value;
 
-  t.is(ctx.value.locales[0], 'en-US');
-  t.is(ctx.value.messages.has('key'), true);
-  msg = ctx.value.messages.get('key');
-  t.is(ctx.value.format(msg), 'platform value');
+  t.is(ctx.locales[0], 'en-US');
+  t.is(ctx.hasMessage('key'), true);
+  msg = ctx.getMessage('key');
+  t.is(ctx.format(msg), 'platform value');
 
-  t.is(ctx.value.messages.has('key2'), true);
-  msg = ctx.value.messages.get('key2');
-  t.is(ctx.value.format(msg), 'about app');
+  t.is(ctx.hasMessage('key2'), true);
+  msg = ctx.getMessage('key2');
+  t.is(ctx.format(msg), 'about app');
 
   t.is(ctxs.next().done, true);
 });

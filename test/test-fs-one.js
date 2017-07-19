@@ -19,10 +19,10 @@ test('has one source', t => {
   t.is(L10nRegistry.sources.has('app'), true);
 });
 
-test('returns a single context', t => {
+test('returns a single context', async t => {
   let ctxs = L10nRegistry.generateContexts(['en-US'], ['test.ftl']);
-  let ctx0 = ctxs.next();
-  t.is(ctx0.value.messages.has('key'), true);
+  let ctx0 = await ctxs.next().value;
+  t.is(ctx0.hasMessage('key'), true);
 
   t.is(ctxs.next().done, true);
 });

@@ -24,30 +24,30 @@ test('has two sources', t => {
   t.is(L10nRegistry.sources.has('platform'), true);
 });
 
-test('returns correct bundles for en-US', t => {
+test('returns correct bundles for en-US', async t => {
   let ctxs = L10nRegistry.generateContexts(['en-US'], ['test.ftl']);
-  let ctx0 = ctxs.next();
+  let ctx0 = await ctxs.next().value;
 
-  t.is(ctx0.value.messages.has('key'), true);
-  let msg = ctx0.value.messages.get('key');
-  t.is(ctx0.value.format(msg), 'platform value');
+  t.is(ctx0.hasMessage('key'), true);
+  let msg = ctx0.getMessage('key');
+  t.is(ctx0.format(msg), 'platform value');
 
   t.is(ctxs.next().done, true);
 });
 
-test('returns correct bundles for [pl, en-US]', t => {
+test('returns correct bundles for [pl, en-US]', async t => {
   let ctxs = L10nRegistry.generateContexts(['pl', 'en-US'], ['test.ftl']);
-  let ctx0 = ctxs.next();
-  t.is(ctx0.value.locales[0], 'pl');
-  t.is(ctx0.value.messages.has('key'), true);
-  let msg0 = ctx0.value.messages.get('key');
-  t.is(ctx0.value.format(msg0), 'app value');
+  let ctx0 = await ctxs.next().value;
+  t.is(ctx0.locales[0], 'pl');
+  t.is(ctx0.hasMessage('key'), true);
+  let msg0 = ctx0.getMessage('key');
+  t.is(ctx0.format(msg0), 'app value');
 
-  let ctx1 = ctxs.next();
-  t.is(ctx1.value.locales[0], 'en-US');
-  t.is(ctx1.value.messages.has('key'), true);
-  let msg1 = ctx1.value.messages.get('key');
-  t.is(ctx1.value.format(msg1), 'platform value');
+  let ctx1 = await ctxs.next().value;
+  t.is(ctx1.locales[0], 'en-US');
+  t.is(ctx1.hasMessage('key'), true);
+  let msg1 = ctx1.getMessage('key');
+  t.is(ctx1.format(msg1), 'platform value');
 
   t.is(ctxs.next().done, true);
 });
