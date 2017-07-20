@@ -11,7 +11,7 @@ test.before(() => {
 });
 
 test.after(() => {
-  L10nRegistry._clearSources();
+  L10nRegistry.sources.clear();
 });
 
 test('has one source', t => {
